@@ -1,0 +1,42 @@
+{%extends 'library/main.html'%}
+{%block content%}
+<br>
+<br>
+<div class="row">
+  <div class="col">
+    <div class="card card-body">
+
+      <form method="GET">
+        {{myFilter.form}}
+        <button class="btn btn-primary" type="submit">Search</button>
+      </form>
+
+    </div>
+  </div>
+</div>
+<div class="container">
+    <div class="row" >
+        <table class="table mb-3">
+          <thead class="thead bg-dark text-white">
+            <tr>
+              <th scope="col">Category</th>
+              <th scope="col">Description</th>
+              <th scope="col">Update</th>
+              <th scope="col">Delete</th>
+            </tr>
+          </thead>
+          {%for category in categories%}
+          <tr>
+            <td>{{category.name}}</td>
+            <td>{{category.desc}}</td>
+            <td><a class='btn btn-sm btn-info' href="{% url 'updatecategory' category.id %}">Update</a></td>
+            <td><a class='btn btn-sm btn-danger' href="{% url 'deletecategory' category.id %}">Delete</a></td>
+          </tr>
+          {%endfor%}
+        </table>
+  
+      </div>
+  
+    </div>
+  
+{%endblock%}

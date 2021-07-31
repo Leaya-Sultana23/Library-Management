@@ -1,0 +1,67 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{% static 'css/sb-admin-2.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" />
+<style>
+  .navbar {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.1rem;
+    background: rgba(10, 10, 10, 0.6) !important;
+  }
+  .navbar-nav {
+    padding-left: 0.7rem;
+  }
+  .navbar-dark .navbar-nav .nav-link {
+    color: white;
+  }
+  .navbar-dark .navbar-nav .nav-link:hover {
+    color: #19a06c;
+  }
+
+</style>
+  <title>Document</title>
+</head>
+<body>
+  <!---Header-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+      <a class="navbar-brand" href="#"> Library Management System</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'base' %}">
+              Home <span class="glyphicon glyphicon-home"></span></a>
+          </li> 
+          {% if user.is_authenticated%}
+          <li class="nav-item"><a class="nav-link disabled text-white ">Hello,{{user.first_name}}</a></li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Log out<span class="glyphicon glyphicon-log-in"> </span></a>
+          </li>
+          {%else%}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Log In<span class="glyphicon glyphicon-log-in"> </span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'register' %}">Register<span class="glyphicon glyphicon-log-in"> </span></a>
+          </li>
+          {%endif%}
+        </ul>
+      </div>
+    </nav> 
+    {%block content%}
+
+    {%endblock%}  
+  <!--jqury file-->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

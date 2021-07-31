@@ -1,0 +1,93 @@
+{%extends 'library/main.html'%}
+{%block content%}
+<br />
+<div class="row">
+  <div class="col">
+    <div class="card card-body">
+      <form method="GET">
+        {{myFilter.form}}
+        <button class="btn btn-primary" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</div>
+<br />
+<div class="container">
+  <div class="row">
+    <table class="table mb-3">
+      <thead class="thead bg-dark text-light">
+        <tr>
+          <th scope="col">Book Name</th>
+          <th scope="col">Author Name</th>
+          <th scope="col">Category</th>
+          <th scope="col">Publication</th>
+          <th scope="col">ISBN</th>
+          <th scope="col">Language</th>
+          <th scope="col">Total copy</th>
+          <th scope="col">Edition</th>
+          <th scope="col">Edition Year</th>
+          <th>Update</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      {%for i in books%}
+      <tr>
+        <td>{{i.name}}</td>
+        <td>{{i.author}}</td>
+        <td>{{i.category}}</td>
+        <td>{{i.publish}}</td>
+        <td>{{i.isbn}}</td>
+        <td>{{i.lng}}</td>
+        <td>{{i.copies}}</td>
+        <td>{{i.edition}}</td>
+        <td>{{i.edition_year}}</td>
+        <td>
+          <a class="btn btn-sm btn-info" href="{% url 'updatebook' i.id %}">Update</a>
+        </td>
+        <td>
+          <a class="btn btn-sm btn-danger" href="{% url 'deletebook' i.id %}">Delete</a>
+        </td>
+      </tr>
+      {%endfor%}
+    </table>
+    <br />
+    <div class="row">
+      {% if books.has_other_pages %}
+      <ul class="pagination">
+        {% if books.has_previous %}
+         <li class="page-item">
+          <a class="page-link" href="{% url 'book' %}?page={{ books.previous_page_number }}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
+          </a>
+        </li>
+        {% else %}
+        <span class="disabled"></span>
+        <span class="sr-only">Previous</span>
+        {% endif %}
+        {% for i in books.paginator.page_range %} 
+        {% if books.number == i %}
+        <li class="page-item"><a class="page-link" href="{% url 'book' %}?page={{ i }}" aria-level="Previous">
+          <span aria-hidden="true">{{ i }}<span class="sr-only">(current)</span></span>
+        </a></li>
+        {% else %}
+        <li class="page-item"><a class="page-link" href="{% url 'book' %}?page={{ i }}"  aria-level="previous">{{i}}</a></li>
+        {% endif %} 
+        {% endfor %}
+        {% if books.has_next %}
+        <li>
+          <a class="page-link" href="{% url 'book' %}?page={{ books.next_page_number }}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
+          </a>
+        </li>
+        {% else %}
+        <span class="disabled"></span>
+        <span class="sr-only">Next</span>
+      {% endif %}
+      </ul>
+      {%endif%}
+    </div>
+  </div>
+</div>
+{%endblock%}

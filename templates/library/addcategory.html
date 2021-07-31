@@ -1,0 +1,15 @@
+{%extends 'library/main.html'%}
+{% load crispy_forms_tags %}
+{%block content%}
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class="container">
+        <div class="form-row">
+            <div class="form-group col-md-6 col-lg-offset-3">
+                {{form|crispy}}
+                <input type="submit" name="submit">               
+            </div>
+        </div>
+    </div>
+</form>
+{%endblock%}

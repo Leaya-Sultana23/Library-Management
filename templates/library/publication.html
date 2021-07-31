@@ -1,0 +1,40 @@
+{%extends 'library/main.html'%}
+{% load static %}
+{%block content%}
+<br>
+<div class="row">
+  <div class="col">
+    <div class="card card-body">
+
+      <form method="GET">
+        {{myFilter.form}}
+        <button class="btn btn-primary" type="submit">Search</button>
+      </form>
+
+    </div>
+  </div>
+</div>
+<div class="container">
+    <div class="row" style="margin-top: 1.5rem;">
+        <table class="table mb-3">
+          <thead class="thead bg-dark text-white">
+            <tr>
+              <th scope="col">Publication</th>
+              <th scope="col">Address</th>
+              <th scope="col">Update</th>
+              <th scope="col">Delete</th>
+            </tr>
+          </thead>
+          {%for publisher in publishers%}
+          <tr>
+            <td>{{publisher.name}}</td>
+            <td>{{publisher.address}}</td>
+            <td><a class='btn btn-sm btn-info' href="{% url 'updatepublication' publisher.id %}">Update</a></td>
+            <td><a class='btn btn-sm btn-danger' href="{% url 'deletepublication' publisher.id %}">Delete</a></td>
+          </tr>
+          {%endfor%}
+        </table>
+    </div>
+</div>
+  
+{%endblock%}

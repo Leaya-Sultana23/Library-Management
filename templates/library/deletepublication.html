@@ -1,0 +1,10 @@
+{%extends 'library/main.html'%}
+{%block content%}
+<p>Are you sure you want to delete {{form}}?</p>
+<form action="{% url 'deletepublication' form.id %}" method="POST">
+    {% csrf_token %}
+    <a href="{% url 'publication' %}">Cancle</a>
+    <input type="submit" name="confirm">
+</form>
+
+{%endblock%}
